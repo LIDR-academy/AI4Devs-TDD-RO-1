@@ -6,44 +6,40 @@
 
 ---
 
-## Prompt 1: Initial Test File Creation
+## Prompt 1: Initial Test File Setup
 
 **Date:** 22 June 2025  
 **Tool:** GitHub Copilot  
-**Context:** Creating the main test file for candidate service testing
+**Context:** Setting up the main test file structure and imports
 
 **Prompt:**
 
-```
-// Create comprehensive Jest unit tests for candidateService.ts addCandidate function
-// Requirements:
-// 1. Test both form data validation and database persistence
-// 2. Use TypeScript with strong typing
-// 3. Mock Prisma Client and domain models
-// 4. Follow TDD best practices with AAA pattern
-// 5. Cover all validation scenarios (required fields, formats, etc.)
-// 6. Test database operations with proper mocking
-// 7. Handle error scenarios (duplicates, validation failures)
+```typescript
+// tests-GG.test.ts
+// Create comprehensive Jest unit tests for candidateService addCandidate function
+// Need to test form validation and database persistence with mocked Prisma
+// Use TypeScript, follow TDD/AAA pattern, mock all external dependencies
 
 import { addCandidate } from '../application/services/candidateService';
 import { PrismaClient } from '@prisma/client';
+import { Candidate } from '../domain/models/Candidate';
+import { Education } from '../domain/models/Education';
+import { WorkExperience } from '../domain/models/WorkExperience';
+import { Resume } from '../domain/models/Resume';
 ```
 
 ---
 
-## Prompt 2: Mock Setup and Test Structure
+## Prompt 2: Jest Mocks Setup
 
 **Date:** 22 June 2025  
 **Tool:** GitHub Copilot  
-**Context:** Setting up proper mocks for Prisma and domain models
+**Context:** Setting up Jest mocks for Prisma and domain models
 
 **Prompt:**
 
-```
-// Setup Jest mocks for Prisma Client and all domain models
-// Create mock implementations that simulate real database behavior
-// Include proper TypeScript types and mock cleanup in beforeEach
-
+```typescript
+// Mock all external dependencies first
 jest.mock('@prisma/client');
 jest.mock('../domain/models/Candidate');
 jest.mock('../domain/models/Education');
@@ -51,215 +47,356 @@ jest.mock('../domain/models/WorkExperience');
 jest.mock('../domain/models/Resume');
 
 describe('addCandidate Service', () => {
-  // Setup mocked types and implementations
-  // Create realistic mock data that matches domain constraints
-  // Ensure proper mock cleanup for test isolation
+  let mockCandidate: jest.Mocked<Candidate>;
+  let mockEducation: jest.Mocked<Education>;
+  let mockWorkExperience: jest.Mocked<WorkExperience>;
+  let mockResume: jest.Mocked<Resume>;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    // Setup mock candidate with save method
+    mockCandidate = {
+      id: 1,
+      firstName: 'Juan',
+      lastName: 'Pérez',
+      email: 'juan.perez@example.com',
+      save: jest.fn().mockResolvedValue({ id: 1 })
+    } as any;
 ```
 
 ---
 
-## Prompt 3: Validation Tests - Required Fields
+## Prompt 3: Required Fields Validation Tests
 
 **Date:** 22 June 2025  
 **Tool:** GitHub Copilot  
-**Context:** Creating validation tests for required fields
+**Context:** Creating tests for required field validation
 
 **Prompt:**
 
-```
-// Create comprehensive validation tests for required fields (firstName, lastName, email)
-// Test scenarios:
-// - Missing firstName should throw error
-// - Empty firstName should throw error
-// - Missing lastName should throw error
-// - Missing email should throw error
-// Follow AAA pattern: Arrange-Act-Assert
-// Use descriptive test names with "should [expected behavior] when [condition]"
+```typescript
+  describe('Payload Validation Tests - Form Data Reception', () => {
+    describe('Required Fields Validation', () => {
+      it('should throw error when firstName is missing', async () => {
+        // Arrange
+        const candidateData = {
+          lastName: 'Pérez',
+          email: 'test@example.com'
+        };
 
-describe('Payload Validation Tests - Form Data Reception', () => {
-  describe('Required Fields Validation', () => {
-    it('should throw error when firstName is missing', async () => {
+        // Act & Assert
+        await expect(addCandidate(candidateData)).rejects.toThrow('First name is required');
+      });
+
+      it('should throw error when firstName is empty string', async () => {
+        const candidateData = {
+          firstName: '',
+          lastName: 'Pérez',
+          email: 'test@example.com'
+        };
+        await expect(addCandidate(candidateData)).rejects.toThrow('First name is required');
+      });
 ```
 
 ---
 
-## Prompt 4: Validation Tests - Name Format
+## Prompt 4: Name Format Validation Tests
 
 **Date:** 22 June 2025  
 **Tool:** GitHub Copilot  
-**Context:** Creating validation tests for name format rules
+**Context:** Testing name length and character validation
 
 **Prompt:**
 
-```
-// Create validation tests for name format rules:
-// - Names must be 2-100 characters
-// - Only alphabetic characters and Spanish accents allowed
-// - Test both firstName and lastName validation
-// Include positive test for Spanish accents (José, María, González-Pérez)
+```typescript
+    describe('Name Validation', () => {
+      it('should throw error when firstName is too short', async () => {
+        const candidateData = {
+          firstName: 'A',  // Only 1 character
+          lastName: 'Pérez',
+          email: 'test@example.com'
+        };
+        await expect(addCandidate(candidateData)).rejects.toThrow('must be between 2 and 100 characters');
+      });
 
-describe('Name Validation', () => {
-  it('should throw error when firstName is too short', async () => {
-  it('should throw error when firstName is too long', async () => {
-  it('should throw error when firstName contains invalid characters', async () => {
-  it('should accept names with Spanish accents', async () => {
+      it('should throw error when firstName is too long', async () => {
+        const candidateData = {
+          firstName: 'A'.repeat(101), // 101 characters
+          lastName: 'Pérez',
+          email: 'test@example.com'
+        };
+        await expect(addCandidate(candidateData)).rejects.toThrow('must be between 2 and 100 characters');
+      });
+
+      it('should accept names with Spanish accents', async () => {
+        const candidateData = {
+          firstName: 'José María',
+          lastName: 'González-Pérez',
+          email: 'jose@example.com'
+        };
+        // Should not throw error for valid Spanish names
+      });
 ```
 
 ---
 
-## Prompt 5: Email and Phone Validation Tests
+## Prompt 5: Email Validation Tests
 
 **Date:** 22 June 2025  
 **Tool:** GitHub Copilot  
-**Context:** Creating validation tests for email and phone formats
+**Context:** Testing email format validation
 
 **Prompt:**
 
-```
-// Create email validation tests:
-// - Invalid email format should throw error
-// - Missing @ symbol should throw error
-// - Missing domain should throw error
-// - Valid email should pass
+```typescript
+    describe('Email Validation', () => {
+      it('should throw error when email format is invalid', async () => {
+        const candidateData = {
+          firstName: 'Juan',
+          lastName: 'Pérez',
+          email: 'invalid-email'
+        };
+        await expect(addCandidate(candidateData)).rejects.toThrow('Invalid email format');
+      });
 
-// Create phone validation tests for Spanish format:
-// - Phone must start with 6, 7, or 9
-// - Must be exactly 9 digits
-// - Invalid format should throw error
-// - Phone is optional field
+      it('should throw error when email is missing @ symbol', async () => {
+        const candidateData = {
+          firstName: 'Juan',
+          lastName: 'Pérez',
+          email: 'testexample.com'
+        };
+        await expect(addCandidate(candidateData)).rejects.toThrow('Invalid email format');
+      });
 
-describe('Email Validation', () => {
-describe('Phone Validation', () => {
+      it('should accept valid email format', async () => {
+        const candidateData = {
+          firstName: 'Juan',
+          lastName: 'Pérez',
+          email: 'juan.perez@example.com'
+        };
+        // Should not throw for valid email
+      });
 ```
 
 ---
 
-## Prompt 6: Complex Data Validation Tests
+## Prompt 6: Phone Validation Tests
 
 **Date:** 22 June 2025  
 **Tool:** GitHub Copilot  
-**Context:** Creating validation tests for education, work experience, and CV data
+**Context:** Testing Spanish phone format validation
 
 **Prompt:**
 
-```
-// Create validation tests for complex nested data:
-// Education validation:
-// - institution is required
-// - title is required
-// - startDate must be valid YYYY-MM-DD format
+```typescript
+    describe('Phone Validation', () => {
+      it('should throw error when phone format is invalid', async () => {
+        const candidateData = {
+          firstName: 'Juan',
+          lastName: 'Pérez',
+          email: 'juan@example.com',
+          phone: '123456789' // Doesn't start with 6,7,9
+        };
+        await expect(addCandidate(candidateData)).rejects.toThrow('Phone must start with 6, 7, or 9');
+      });
 
-// Work Experience validation:
-// - company is required
-// - position is required
+      it('should accept valid Spanish phone formats', async () => {
+        const testCases = ['612345678', '723456789', '987654321'];
+        for (const phone of testCases) {
+          const candidateData = {
+            firstName: 'Juan',
+            lastName: 'Pérez',
+            email: 'juan@example.com',
+            phone
+          };
+          // Should not throw for valid phone formats
+        }
+      });
 
-// CV validation:
-// - filePath is required when CV provided
-// - fileType is required when CV provided
-
-describe('Education Validation', () => {
-describe('Work Experience Validation', () => {
-describe('CV Validation', () => {
+      it('should accept candidate without phone (optional field)', async () => {
+        const candidateData = {
+          firstName: 'Juan',
+          lastName: 'Pérez',
+          email: 'juan@example.com'
+          // phone is optional
+        };
+        // Should not throw when phone is missing
+      });
 ```
 
 ---
 
-## Prompt 7: Database Persistence Tests
+## Prompt 7: Database Persistence Tests Setup
 
 **Date:** 22 June 2025  
 **Tool:** GitHub Copilot  
-**Context:** Creating database persistence tests with Prisma mocks
+**Context:** Testing database operations with Prisma mocks
 
 **Prompt:**
 
-```
-// Create database persistence tests with proper Prisma mocking:
-// Test successful candidate creation with minimal data
-// Test successful candidate creation with complete data including optional fields
-// Mock Prisma client methods (create, findUnique, etc.)
-// Verify correct data is passed to Prisma methods
-// Test that function returns expected result structure
+```typescript
+  describe('Database Persistence Tests - Database Saving', () => {
+    describe('Successful Candidate Creation', () => {
+      it('should create candidate with minimal valid data', async () => {
+        // Arrange
+        const candidateData = {
+          firstName: 'Juan',
+          lastName: 'Pérez',
+          email: 'juan.perez@example.com'
+        };
 
-describe('Database Persistence Tests - Database Saving', () => {
-  describe('Successful Candidate Creation', () => {
-    it('should create candidate with minimal valid data', async () => {
-    it('should create candidate with complete data including optional fields', async () => {
+        // Mock successful save
+        mockCandidate.save.mockResolvedValue({
+          id: 1,
+          firstName: 'Juan',
+          lastName: 'Pérez',
+          email: 'juan.perez@example.com'
+        });
+
+        // Act
+        const result = await addCandidate(candidateData);
+
+        // Assert
+        expect(mockCandidate.save).toHaveBeenCalled();
+        expect(result).toEqual(expect.objectContaining({
+          id: 1,
+          firstName: 'Juan',
+          lastName: 'Pérez'
+        }));
+      });
 ```
 
 ---
 
-## Prompt 8: Related Records and Error Handling
+## Prompt 8: Error Handling Tests
 
 **Date:** 22 June 2025  
 **Tool:** GitHub Copilot  
-**Context:** Testing creation of related records and error scenarios
+**Context:** Testing database error scenarios
 
 **Prompt:**
 
-```
-// Create tests for related records creation:
-// - Education records should be created and associated with candidate
-// - Work experience records should be created and associated with candidate
-// - CV/Resume records should be created and associated with candidate
-// - Handle empty arrays gracefully
+```typescript
+    describe('Error Handling', () => {
+      it('should handle duplicate email error (P2002)', async () => {
+        const candidateData = {
+          firstName: 'Juan',
+          lastName: 'Pérez',
+          email: 'existing@example.com'
+        };
 
-// Create error handling tests:
-// - P2002 duplicate email error from Prisma
-// - General database errors should be propagated
-// - Validation errors should be properly handled
+        // Mock Prisma P2002 error (unique constraint violation)
+        const prismaError = new Error('Unique constraint failed');
+        (prismaError as any).code = 'P2002';
+        mockCandidate.save.mockRejectedValue(prismaError);
 
-describe('Education Records Creation', () => {
-describe('Work Experience Records Creation', () => {
-describe('CV File Handling', () => {
-describe('Error Handling', () => {
+        await expect(addCandidate(candidateData)).rejects.toThrow('Email already exists');
+      });
+
+      it('should propagate other database errors', async () => {
+        const candidateData = {
+          firstName: 'Juan',
+          lastName: 'Pérez',
+          email: 'juan@example.com'
+        };
+
+        const dbError = new Error('Database connection failed');
+        mockCandidate.save.mockRejectedValue(dbError);
+
+        await expect(addCandidate(candidateData)).rejects.toThrow('Database connection failed');
+      });
 ```
 
 ---
 
-## Prompt 9: Jest Configuration Setup
+## Prompt 9: Jest Configuration
 
 **Date:** 22 June 2025  
 **Tool:** GitHub Copilot  
-**Context:** Setting up Jest configuration for TypeScript
+**Context:** Setting up Jest for TypeScript
 
 **Prompt:**
 
-```
-// Create jest.config.js for TypeScript project with ts-jest
-// Requirements:
-// - Use ts-jest preset for TypeScript compilation
-// - Set test environment to 'node' for backend testing
-// - Configure proper test file patterns (**/*.test.ts)
-// - Set up module resolution for TypeScript
-// - Include coverage collection configuration
-
+```javascript
+// jest.config.js
+// Create Jest configuration for TypeScript project with ts-jest preset
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  // Add remaining configuration for TypeScript support
+  roots: ['<rootDir>/src'],
+  testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
+  transform: {
+    '^.+\\.ts$': 'ts-jest',
+  },
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/**/*.d.ts',
+  ],
+  moduleFileExtensions: ['ts', 'js', 'json', 'node'],
 ```
 
 ---
 
-## Prompt 10: Final Integration and Data Flow Test
+## Prompt 10: Integration Test
 
 **Date:** 22 June 2025  
 **Tool:** GitHub Copilot  
-**Context:** Creating comprehensive integration test
+**Context:** Creating end-to-end data flow test
 
 **Prompt:**
 
-```
-// Create comprehensive integration test that validates complete data flow:
-// - Accept valid candidate data with all fields
-// - Verify validation passes correctly
-// - Verify Prisma methods are called with correct data
-// - Verify all related records are created
-// - Verify function returns expected result
-// This test should validate the entire "insert candidate" workflow
+```typescript
+    describe('Data Flow Integration', () => {
+      it('should pass validated data correctly through the entire flow', async () => {
+        // Arrange - Complete candidate data with all fields
+        const candidateData = {
+          firstName: 'María José',
+          lastName: 'García-Pérez',
+          email: 'maria.garcia@example.com',
+          phone: '612345678',
+          address: 'Calle Mayor 1, Madrid',
+          educations: [{
+            institution: 'Universidad de Madrid',
+            title: 'Computer Science',
+            startDate: '2018-09-01',
+            endDate: '2022-06-30'
+          }],
+          workExperiences: [{
+            company: 'Tech Corp',
+            position: 'Software Developer',
+            startDate: '2022-07-01',
+            endDate: '2024-12-31'
+          }],
+          cv: {
+            filePath: 'uploads/cv.pdf',
+            fileType: 'application/pdf'
+          }
+        };
 
-describe('Data Flow Integration', () => {
-  it('should pass validated data correctly through the entire flow', async () => {
+        // Mock all successful operations
+        mockCandidate.save.mockResolvedValue({ id: 1, ...candidateData });
+        mockEducation.save.mockResolvedValue(true);
+        mockWorkExperience.save.mockResolvedValue(true);
+        mockResume.save.mockResolvedValue(true);
+
+        // Act
+        const result = await addCandidate(candidateData);
+
+        // Assert - Verify all components were called correctly
+        expect(mockCandidate.save).toHaveBeenCalled();
+        expect(mockEducation.save).toHaveBeenCalled();
+        expect(mockWorkExperience.save).toHaveBeenCalled();
+        expect(mockResume.save).toHaveBeenCalled();
+        expect(result).toEqual(expect.objectContaining({
+          id: 1,
+          firstName: 'María José',
+          email: 'maria.garcia@example.com'
+        }));
+      });
+    });
+  });
+});
 ```
 
 ---
