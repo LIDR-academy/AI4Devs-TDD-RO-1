@@ -5,6 +5,7 @@ This project is a full-stack application with a React frontend and an Express ba
 ## Explanation of Directories and Files
 
 - `backend/`: It contains the server-side code written in Node.js.
+  - `__test__`: It contains test units code files
   - `src/`: It contains the source code for the backend.
     - `index.ts`: The entry point for the backend server.
     - `application/`: It contains the application logic.
@@ -42,6 +43,42 @@ The backend is an Express application written in TypeScript. The src directory c
 
 The `prisma` folder contains the Prisma schema.
 
+### Unit Testing Structure
+
+The backend includes a well-organized structure for unit tests using Jest and Supertest. Tests are located in the `backend/__tests__` folder and follow this structure:
+
+- `__tests__/`: It contains unit test files for the backend.
+    - `application/`: Unit tests for application logic.
+      - `files/`: Test files such as sample PDFs.
+        - `test-cv.pdf`: Sample PDF file used in tests.
+      - `services/`:
+        - `candidateService.test.ts`: Unit tests for the candidate service logic.
+    - `domain/`:
+      - `models/`: (Reserved for domain model tests)
+    - `presentation/`:
+      - `controllers/`: (Reserved for controller tests)
+    - `routes/`:
+      - `candidateRoutes.test.ts`: Unit tests for candidate API routes.
+
+#### Running Unit Tests
+
+To run the backend unit tests:
+
+1. Install dependencies:
+    ```sh
+    npm install
+    ```
+2. Run the tests:
+    ```sh
+    npm test
+    ```
+3. (Optional) For coverage report:
+    ```sh
+    npm test -- --coverage
+    ```
+
+All tests use mocks for the database and external services, ensuring no real data is altered.
+
 ## First Steps
 
 To get started with this project, follow these steps:
@@ -56,7 +93,7 @@ cd ../backend
 npm install
 ```
 3. Build the back end server:
-```
+```sh
 cd backend
 npm run build
 ````
@@ -71,7 +108,7 @@ cd frontend
 npm run build
 ```
 6. Start the frontend server:
-```
+```sh
 cd frontend
 npm start
 ```
@@ -158,6 +195,7 @@ Este proyecto es una aplicación full-stack con un frontend en React y un backen
 ## Explicación de Directorios y Archivos
 
 - `backend/`: Contiene el código del lado del servidor escrito en Node.js.
+  - `__tests__`: Contiene el código para pruebas unitarias
   - `src/`: Contiene el código fuente para el backend.
     - `index.ts`: El punto de entrada para el servidor backend.
     - `application/`: Contiene la lógica de aplicación.
@@ -195,6 +233,42 @@ El backend es una aplicación Express escrita en TypeScript. El directorio `src`
 
 El directorio `prisma` contiene el esquema de Prisma.
 
+### Estructura de Pruebas Unitarias
+
+El backend incluye una estructura organizada para pruebas unitarias utilizando Jest y Supertest. Las pruebas se encuentran en la carpeta `backend/__tests__` y siguen esta estructura:
+
+- `__tests__/`: Contiene los archivos de pruebas unitarias del backend.
+    - `application/`: Pruebas de la lógica de aplicación.
+      - `files/`: Archivos de prueba, como PDFs de ejemplo.
+        - `test-cv.pdf`: Archivo PDF de ejemplo usado en pruebas.
+      - `services/`:
+        - `candidateService.test.ts`: Pruebas unitarias para la lógica del servicio de candidatos.
+    - `domain/`:
+      - `models/`: (Reservado para pruebas de modelos de dominio)
+    - `presentation/`:
+      - `controllers/`: (Reservado para pruebas de controladores)
+    - `routes/`:
+      - `candidateRoutes.test.ts`: Pruebas unitarias para las rutas de la API de candidatos.
+
+#### Ejecución de Pruebas Unitarias
+
+Para ejecutar las pruebas unitarias del backend:
+
+1. Instala las dependencias:
+    ```sh
+    npm install
+    ```
+2. Ejecuta las pruebas:
+    ```sh
+    npm test
+    ```
+3. (Opcional) Para ver el reporte de cobertura:
+    ```sh
+    npm test -- --coverage
+    ```
+
+Todas las pruebas utilizan mocks para la base de datos y servicios externos, asegurando que no se alteren datos reales.
+
 ## Primeros Pasos
 
 Para comenzar con este proyecto, sigue estos pasos:
@@ -224,7 +298,7 @@ cd frontend
 npm run build
 ```
 6. Inicia el servidor frontend:
-```
+```sh
 cd frontend
 npm start
 ```
