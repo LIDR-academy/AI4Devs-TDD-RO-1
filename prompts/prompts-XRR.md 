@@ -1,0 +1,106 @@
+## Prompt para generar tests unitarios en Jest (tests-XRR.tests.ts) cursor Agent claude-4-sonnet
+
+Actúa como experto en testing de aplicaciones Node.js y Typescript usando Jest.
+
+Estoy trabajando en el backend de un ATS en Typescript y quiero crear una suite de tests unitarios en el archivo `backend/src/tests/tests-XRR.tests.ts` para la funcionalidad de inserción de nuevos candidatos.
+
+La función a testear recibe los datos de un candidato (nombre, email, teléfono, CV, etc.), valida los campos requeridos y los guarda en base de datos.
+
+Genera ejemplos de tests que cubran:
+- La validación de los datos recibidos (campos obligatorios, formato de email, etc.).
+- El guardado exitoso en la base de datos.
+- El comportamiento cuando los datos son inválidos (debe lanzar error y rechazar la inserción).
+- Mockea la base de datos usando Jest para no alterar datos reales.
+
+Utiliza `describe` e `it` en la estructura.
+Utiliza buenas prácticas de testing en la medida de lo posible, y añade todos los casos límite que consideres.
+Añade comentarios para aclarar a qué criterio de aceptación se refiere cada testContexto del proyecto.
+
+Antes de empezar pregúntame todas tus dudas y propon sugerencias antes de ejecutar nada
+
+-----------------------------------------------------------
+### Respuesta cursor:
+
+Dudas y aclaraciones:
+1. Configuración de Jest: Veo que ya tienes un jest.config.js en el root. ¿Quieres que utilice esa configuración o necesitas ajustes específicos para los tests del backend?
+2. Mocking de Prisma: ¿Prefieres que use jest.mock() para mockear directamente PrismaClient o que use una biblioteca como prisma-mock? La primera opción es más simple y directa.
+3. Estructura de tests: ¿Quieres que testee únicamente la función addCandidate del service, o también quieres incluir tests para el controller addCandidateController?
+4. Datos de test: ¿Hay algún conjunto de datos específico que uses habitualmente para testing, o genero ejemplos realistas?
+
+-----------------------------------------------------------
+### Respuesta user:
+
+1. utiliza esta configuración y actualizala si crees que es necesario.
+2. jest.mock()
+3. Ambos
+4. Genera los datos que creas necesario.
+
+Si tus dudas y sugerencias están resueltas, dame una lista de tareas y subtareas verificables antes de continuar.
+
+-----------------------------------------------------------
+### Respuesta cursor:
+
+Lista de Tareas para Testing de Candidatos
+1. Configuración y Setup
+[ ] 1.1. Revisar y actualizar jest.config.js si es necesario para el backend
+[ ] 1.2. Configurar mocks de Prisma usando jest.mock()
+[ ] 1.3. Crear helpers para datos de test reutilizables
+[ ] 1.4. Configurar setup/teardown para limpiar mocks entre tests
+2. Tests del Service Layer (candidateService.ts)
+[ ] 2.1. Tests de validación exitosa
+[ ] Candidato válido con datos mínimos requeridos
+[ ] Candidato válido con todos los campos opcionales
+[ ] Candidato con educaciones múltiples
+[ ] Candidato con experiencias laborales múltiples
+[ ] Candidato con CV adjunto
+[ ] 2.2. Tests de validación fallida
+[ ] firstName faltante, inválido, muy corto, muy largo, caracteres especiales
+[ ] lastName faltante, inválido, muy corto, muy largo, caracteres especiales
+[ ] email faltante, formato inválido, muy largo
+[ ] teléfono con formato inválido (campo opcional)
+[ ] dirección muy larga (campo opcional)
+[ ] educación con datos inválidos (institución, título, fechas)
+[ ] experiencia laboral con datos inválidos (empresa, puesto, fechas, descripción)
+[ ] CV con formato inválido
+[ ] 2.3. Tests de persistencia
+[ ] Guardado exitoso en base de datos
+[ ] Error de email duplicado (constraint único P2002)
+[ ] Error de conexión a base de datos
+[ ] Guardado exitoso de relaciones (education, workExperience, resume)
+[ ] 2.4. Tests de casos límite
+[ ] Campos en el límite máximo de caracteres permitidos
+[ ] Fechas límite válidas e inválidas
+[ ] Arrays vacíos vs undefined para educations/workExperiences
+[ ] CV con objeto vacío vs undefined
+3. Tests del Controller Layer (candidateController.ts)
+[ ] 3.1. Tests de respuestas exitosas
+[ ] Response 201 con candidato creado correctamente
+[ ] Response format correcto (message + data)
+[ ] 3.2. Tests de manejo de errores
+[ ] Response 400 para errores de validación
+[ ] Response 400 para email duplicado
+[ ] Response 400 para errores generales
+[ ] Manejo correcto de errores unknown
+4. Tests Integrados
+[ ] 4.1. Flujo completo: Controller → Service → Model → Database (mock)
+[ ] 4.2. Verificación de que se llaman los métodos correctos en el orden correcto
+5. Casos de Edge Testing
+[ ] 5.1. Datos con caracteres especiales válidos (ñ, acentos)
+[ ] 5.2. Fechas con diferentes formatos válidos
+[ ] 5.3. Teléfonos con diferentes prefijos válidos españoles
+[ ] 5.4. Manejo de null vs undefined vs string vacío
+6. Verificación Final
+[ ] 6.1. Todos los tests pasan
+[ ] 6.2. Cobertura de código adecuada
+[ ] 6.3. Mocks se resetean correctamente entre tests
+[ ] 6.4. Comentarios explicativos para cada criterio de aceptación
+¿Te parece correcta esta estructura? ¿Quieres que añada o modifique alguna tarea antes de proceder con la implementación?
+
+-----------------------------------------------------------
+### Respuesta user:
+
+Me parece perfecto, procede con la tarea 1
+
+-----------------------------------------------------------
+
+... Resto de tareas una por una
