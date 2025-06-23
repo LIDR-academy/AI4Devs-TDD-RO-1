@@ -1,0 +1,1 @@
+This file exists to allow folder deletion. Please delete this file and the folder will be removed.

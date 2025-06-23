@@ -1288,7 +1288,1040 @@ test('calls onChange when file is selected', () => {
 - Use React Testing Library for components, Jest for services.
 - Mock network requests to avoid real backend/DB calls.
 
-Let me know if you want to scaffold any specific 
+Let me know if you want to scaffold any specific test file or need help with setup!
+
+---
+
+_**User**_
+
+before one question. I have different __Tst Folders...when I run the tests all my tests will be executed? I mean Backend and Frontend?.
+
+---
+
+_**Assistant**_
+
+No, running tests in your backend and frontend are separate processes. Here’s how it works:
+
+- **Backend tests** (Node/Express/Prisma):  
+  When you run `npx jest` or `npm test` in your `` directory, only the tests in the backend (e.g., ``) will be executed.
+
+- **Frontend tests** (React):  
+  When you run `npm test` in your `` directory, only the frontend tests (e.g., `frontend/src/__tests__`) will be executed.
+
+**Summary:**  
+- Tests are not run across both projects at once by default.
+- You need to run tests separately in each project’s root directory.
+
+If you want to run all tests for both backend and frontend with a single command, you would need a root-level script or tool (like a monorepo runner), but by default, they are independent.
+
+---
+
+_**User**_
+
+Based on your experience the best way to handled backend and frontend test should be separated or can be all the same?
+
+---
+
+_**Assistant**_
+
+Based on best practices and experience, backend and frontend tests should be handled separately. Here’s why:
+
+### Why Keep Backend and Frontend Tests Separate?
+
+1. **Different Technologies & Runtimes:**
+   - Backend uses Node.js, TypeScript, Jest, Prisma, etc.
+   - Frontend uses React, React Testing Library, Jest, etc.
+   - Each has its own dependencies, configurations, and environment.
+
+2. **Clearer Test Scope:**
+   - Backend tests focus on APIs, business logic, and database.
+   - Frontend tests focus on UI, user interaction, and component logic.
+
+3. **Faster & More Maintainable:**
+   - Running only relevant tests speeds up development.
+   - Easier to debug and maintain when issues are isolated to backend or frontend.
+
+4. **CI/CD Flexibility:**
+   - You can run backend and frontend tests independently in your CI pipelines.
+   - Failures in one do not block the other.
+
+### When to Combine?
+- If you want to run all tests with a single command (e.g., in a monorepo), use a root-level script that triggers both, but still keep the test code and configs separate.
+
+---
+
+**Summary:**  
+Keep backend and frontend tests separate for clarity, maintainability, and speed. Combine only at the orchestration level if needed, not in the test codebase itself.
+
+---
+
+_**User**_
+
+ok lets wrap the proposal for the testing in frontend. I would like to have only one __test__folder in the frontend folder with all the frontend unit tests
+
+---
+
+_**Assistant**_
+
+Here’s a clear proposal for your frontend testing structure with a single `__test__` folder:
+
+---
+
+## **Frontend Testing Structure Proposal**
+
+### **Directory Structure**
+```
+frontend/
+  __test__/
+    FileUploader.test.js
+    AddCandidateForm.test.js
+    RecruiterDashboard.test.js
+    candidateService.test.js
+  src/
+    components/
+      FileUploader.js
+      AddCandidateForm.js
+      RecruiterDashboard.js
+    services/
+      candidateService.js
+```
+
+### **Test File Placement**
+- All unit tests for components and services are placed in `frontend/__test__/`.
+- Each test file corresponds to a component or service in `src/`.
+
+### **Testing Tools**
+- **Jest**: Test runner and assertion library.
+- **React Testing Library**: For component tests (user interaction, rendering).
+- **Jest Mocks**: For mocking fetch/axios in service/component tests.
+
+### **Test File Examples**
+- `FileUploader.test.js`: Test file selection, upload, loading, and error handling.
+- `AddCandidateForm.test.js`: Test form input, section add/remove, CV upload, submission, and messages.
+- `RecruiterDashboard.test.js`: Test rendering and navigation.
+- `candidateService.test.js`: Test API calls and error handling (mock axios).
+
+### **Mocking**
+- Mock network requests (fetch/axios) to avoid real backend/DB calls.
+
+---
+
+**Summary:**  
+- All frontend unit tests live in one `__test__` folder at the root of ``.
+- Easy to run all frontend tests with a single command:  
+  ```powershell
+  npm test
+  ```
+- Clear separation from backend tests.
+
+Let me know if you want to scaffold any test files or need help with setup!
+
+---
+
+_**User**_
+
+first lets scaffold
+
+---
+
+_**Assistant**_
+
+The scaffolding is complete!  
+You now have a single `__test__` folder in your `` directory with the following test files:
+
+- `FileUploader.test.js`
+- `AddCandidateForm.test.js`
+- `RecruiterDashboard.test.js`
+- `candidateService.test.js`
+
+Each file contains a basic structure for the most important unit tests, ready for you to implement the actual test logic.
+
+Let me know if you want to proceed with writing specific tests or need help setting up the test environment!
+
+---
+
+_**User**_
+
+first move the __test__ foldrt to src folder
+
+---
+
+_**Assistant**_
+
+The `__test__` folder and all test files have been moved to ``.  
+You can now maintain and run all your frontend unit tests from this single location.
+
+If you need help updating your test runner configuration or want to start writing actual test logic, let me know!
+
+---
+
+_**User**_
+
+but remove the __test__folder from backend
+
+---
+
+_**Assistant**_
+
+To remove the `__test__` folder from your backend, please delete the following files and the folder itself:
+
+- `tests-iniciales.test.ts`
+- `test-report.html`
+- `.delete_me_to_remove_folder.txt`
+- Then, delete the `__test__` folder.
+
+You can do this manually in your file explorer or let me know if you want me to automate the deletion. This will complete the cleanup, leaving only your frontend tests.
+
+---
+
+_**User**_
+
+no this is not what I want.... I dont want to remove nothing
+
+---
+
+_**Assistant**_
+
+Understood! No files or folders will be removed from your backend. Your backend `__test__` folder and its contents will remain as they are.
+
+If you need to organize, move, or update tests in the future, just let me know how you’d like to proceed!
+
+---
+
+_**User**_
+
+Now proceed to write the unit test proposed for the frontend
+
+---
+
+_**Assistant**_
+
+
+````
+
+````
+
+````
+
+````
+
+````
+
+````
+
+````
+
+````
+All proposed frontend unit tests have been written and placed in ``:
+
+- `FileUploader.test.js`: Tests file selection, upload, loading, and error handling.
+- `candidateService.test.js`: Tests API calls and error handling for candidate services.
+- `RecruiterDashboard.test.js`: Tests dashboard rendering and navigation links.
+- `AddCandidateForm.test.js`: Skeletons for form input, section management, CV upload, submission, and message handling.
+
+You can now implement or expand these tests as needed. If you need help running them or want to fill in more details for any test, just let me know!
+
+---
+
+_**User**_
+
+first review and tell me if a configuration or set up is needed for these tests run successfully
+
+---
+
+_**Assistant**_
+
+Here’s a review of what’s needed for your frontend tests in `` to run successfully:
+
+---
+
+## **1. Testing Dependencies**
+
+You need the following packages installed in your `` project:
+- `jest`
+- `@testing-library/react`
+- `@testing-library/jest-dom`
+- `@testing-library/user-event`
+- `babel-jest` (if using Babel)
+- `axios` (already present)
+- `react-test-renderer` (optional, for snapshot tests)
+
+You can install them with:
+```powershell
+npm install --save-dev jest @testing-library/react @testing-library/jest-dom @testing-library/user-event babel-jest react-test-renderer
+```
+
+---
+
+## **2. Jest Configuration**
+
+- If you used Create React App, Jest is preconfigured and will pick up tests in `src/__test__`.
+- If you ejected or customized, ensure your `package.json` or `jest.config.js` includes:
+  ```json
+  "jest": {
+    "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"]
+  }
+  ```
+  Or in `jest.config.js`:
+  ```js
+  module.exports = {
+    setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
+    testMatch: ['**/__test__/**/*.test.js'],
+  };
+  ```
+
+---
+
+## **3. Mocking**
+
+- The tests for `candidateService` already mock `axios`.
+- The tests for `FileUploader` mock `fetch`.
+- No additional setup is needed for these mocks.
+
+---
+
+## **4. Running the Tests**
+
+From the `` directory, run:
+```powershell
+npm test
+```
+or
+```powershell
+npx jest
+```
+
+---
+
+## **5. Additional Notes**
+
+- If you use TypeScript, ensure test files use `.ts`/`.tsx` and dependencies like `ts-jest` are installed.
+- If you see errors about missing DOM APIs, ensure your Jest environment is set to `jsdom` (default for CRA).
+
+---
+
+**Summary:**  
+If you used Create React App, you likely have most dependencies and config in place. If not, install the required packages and ensure your Jest config matches the above.  
+Let me know if you want me to check your `package.json` or set up any config files for you!
+
+---
+
+_**User**_
+
+what means thisr error: ve-dev jest @testing-library/react @testing-library/jest-dom @testing-library/user-event babel-jest react-test-renderer
+npm warn idealTree Removing dependencies.@testing-library/react in favor of devDependencies.@testing-library/react
+npm warn idealTree Removing dependencies.@testing-library/jest-dom in favor of devDependencies.@testing-library/jest-dom
+npm warn idealTree Removing dependencies.@testing-library/user-event in favor of devDependencies.@testing-library/user-event
+npm error code ERESOLVE
+npm error ERESOLVE unable to resolve dependency tree
+npm error
+npm error While resolving: frontend@0.1.0
+npm error Found: react@18.3.1
+npm error node_modules/react
+npm error   react@"^18.3.1" from the root project
+npm error
+npm error Could not resolve dependency:
+npm error peer react@"^19.1.0" from react-test-renderer@19.1.0
+npm error node_modules/react-test-renderer
+npm error   dev react-test-renderer@"*" from the root project
+npm error
+npm error Fix the upstream dependency conflict, or retry
+npm error this command with --force or --legacy-peer-deps
+npm error to accept an incorrect (and potentially broken) dependency resolution.
+npm error
+npm error
+npm error For a full report see:
+npm error C:\Users\gabym\AppData\Local\npm-cache\_logs\2025-06-23T13_44_46_543Z-eresolve-report.txt
+
+---
+
+_**Assistant**_
+
+This error means there is a version conflict between your installed version of `react` (18.3.1) and the version required by `react-test-renderer` (which wants React 19.1.0).
+
+**Key points from the error:**
+- Your project uses `react@18.3.1`.
+- `react-test-renderer@19.1.0` requires `react@^19.1.0`.
+- npm cannot resolve this mismatch, so it aborts the install.
+
+---
+
+### **How to fix:**
+
+1. **Install a compatible version of `react-test-renderer`:**
+   Use the version that matches your React version:
+   ```powershell
+   npm install --save-dev react-test-renderer@18.3.1
+   ```
+
+2. **If you see similar issues with other packages, install versions compatible with React 18.3.1.**
+
+3. **If you want to force install (not recommended for production):**
+   ```powershell
+   npm install --legacy-peer-deps
+   ```
+   or
+   ```powershell
+   npm install --force
+   ```
+   This will ignore the version conflict, but may cause runtime issues.
+
+---
+
+**Summary:**  
+Always match the version of `react-test-renderer` to your installed React version.  
+Let me know if you want the exact install commands for all your test dependencies!
+
+---
+
+_**User**_
+
+I ran my tests but are failing because of this error:  FAIL  ./FileUploader.test.js
+  ● Test suite failed to run                                                
+                                                                            
+    Jest encountered an unexpected token                                    
+                                                                            
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.                                                    
+                                                                            
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    SyntaxError: C:\Users\gabym\Documents\LIDR\AI4Devs-TDD-RO-1\frontend\src\__test__\FileUploader.test.js: Support for the experimental syntax 'jsx' isn't currently enabled (11:12):
+
+       9 |   it('should call onChange when a file is selected', () => {     
+      10 |     const handleChange = jest.fn();
+    > 11 |     render(<FileUploader onChange={handleChange} onUpload={jest.fn()} />);
+         |            ^
+      12 |     const file = new File(['file content'], 'test.txt', { type: 'text/plain' });
+      13 |     const input = screen.getByLabelText(/file/i);
+      14 |     fireEvent.change(input, { target: { files: [file] } });      
+
+    Add @babel/preset-react (https://github.com/babel/babel/tree/main/packages/babel-preset-react) to the 'presets' section of your Babel config to enable transformation.
+    If you want to leave it as-is, add @babel/plugin-syntax-jsx (https://github.com/babel/babel/tree/main/packages/babel-plugin-syntax-jsx) to the 'plugins' section to enable parsing.
+
+---
+
+_**Assistant**_
+
+This error means Jest is not configured to understand JSX syntax in your test files. You need to add Babel support for React (JSX) in your frontend project.
+
+---
+
+## **How to Fix**
+
+### 1. Install Babel and React preset
+
+Run this in your `` directory:
+```powershell
+npm install --save-dev @babel/preset-env @babel/preset-react babel-jest
+```
+
+### 2. Create or update your Babel config
+
+Create a file called `.babelrc` or `babel.config.js` in your `` directory with the following content:
+
+**For `.babelrc`:**
+```json
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
+}
+```
+
+**Or for `babel.config.js`:**
+```js
+module.exports = {
+  presets: ['@babel/preset-env', '@babel/preset-react'],
+};
+```
+
+### 3. (Optional) Ensure Jest uses Babel
+
+If you use Create React App, this is usually handled for you. If not, make sure your `package.json` or `jest.config.js` does not override the transform for JS files.
+
+---
+
+**Summary:**  
+- Install Babel and the React preset.
+- Add a Babel config with `@babel/preset-react`.
+- Re-run your tests.
+
+Let me know if you want me to create the Babel config file for you!
+
+---
+
+_**User**_
+
+cd ..
+
+---
+
+_**Assistant**_
+
+You have moved up one directory.  
+You are now in:  
+```
+c:\Users\gabym\Documents\LIDR\AI4Devs-TDD-RO-1\backend\src
+```
+
+If you want to continue to the `` root, run `cd ..` again.  
+Let me know what you’d like to do next!
+
+---
+
+_**User**_
+
+yes create the config for me
+
+---
+
+_**Assistant**_
+
+A `babel.config.js` file has been created in your `` directory with the correct presets for React and modern JavaScript.
+
+Now, make sure you have installed the required Babel packages:
+```powershell
+npm install --save-dev @babel/preset-env @babel/preset-react babel-jest
+```
+
+After installing, you should be able to run your frontend tests without the JSX syntax error. Let me know if you need further help!
+
+---
+
+_**User**_
+
+how to run my tests?
+
+---
+
+_**Assistant**_
+
+To run your frontend tests, follow these steps:
+
+1. Open a terminal.
+2. Change directory to your frontend project:
+   ```powershell
+   cd C:\Users\gabym\Documents\LIDR\AI4Devs-TDD-RO-1\frontend
+   ```
+3. Run the tests using one of these commands:
+   ```powershell
+   npm test
+   ```
+   or
+   ```powershell
+   npx jest
+   ```
+
+This will execute all test files in your `src/__test__` folder.
+
+If you see any errors, copy the output here and I’ll help you resolve them!
+
+---
+
+_**User**_
+
+one of the test suites is failed.../RecruiterDashboard.test.js                                         
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+
+---
+
+_**Assistant**_
+
+This error means Jest is still not able to parse JSX or ES6+ syntax in your `RecruiterDashboard.test.js` (or its dependencies). This usually happens if Babel is not set up correctly, or the test runner is not using the right config.
+
+### Checklist to Fix
+
+1. **Ensure Babel config exists in your `` folder:**
+   - You should have `babel.config.js` with:
+     ```js
+     module.exports = {
+       presets: ['@babel/preset-env', '@babel/preset-react'],
+     };
+     ```
+
+2. **Ensure you installed the required Babel packages:**
+   ```powershell
+   npm install --save-dev @babel/preset-env @babel/preset-react babel-jest
+   ```
+
+3. **Check your Jest config:**
+   - If you have a `jest.config.js` in your frontend, make sure it does NOT override the default transform for JS files.
+   - If you don’t have one, Jest will use Babel automatically if `babel-jest` is installed and a Babel config is present.
+
+4. **Restart your test runner** after making changes.
+
+---
+
+**If you did all the above and still see the error:**
+- Make sure you are running the tests from the `` directory, not from the backend or another location.
+- If you have a custom Jest config, add this to ensure JS/JSX files are transformed:
+  ```js
+  module.exports = {
+    // ...other config
+    transform: {
+      '^.+\\.[jt]sx?$': 'babel-jest',
+    },
+  };
+  ```
+
+---
+
+Let me know if you want me to check or create your Jest config for you!
+
+---
+
+_**User**_
+
+I dont have a jest-config in the frontend. It is required?
+
+---
+
+_**Assistant**_
+
+A `jest.config.js` file is not strictly required if you are using Create React App (CRA), because CRA comes with Jest preconfigured and will automatically handle JSX and ES6+ syntax.
+
+However, if you are running Jest outside of CRA, or if you want to customize Jest’s behavior (such as specifying transforms, test locations, or setup files), then a `jest.config.js` is helpful and sometimes necessary.
+
+**In your case:**  
+- If you are seeing syntax errors and you are not using CRA, or you want to ensure Babel is used for transforming your files, you should add a `jest.config.js` file to your `` directory.
+
+---
+
+### Example `jest.config.js` for Babel and React
+
+```js
+module.exports = {
+  transform: {
+    '^.+\\.[jt]sx?$': 'babel-jest',
+  },
+  testMatch: ['**/__test__/**/*.test.js'],
+  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
+  testEnvironment: 'jsdom',
+};
+```
+
+---
+
+**Summary:**  
+- If you use CRA, you usually don’t need a Jest config.
+- If you are not using CRA or want to be sure, add the config above to your `` directory.
+
+Would you like me to create this file for you?
+
+---
+
+_**User**_
+
+yes
+
+---
+
+_**Assistant**_
+
+A `jest.config.js` file has been created in your `` directory with the recommended configuration for React and Babel.
+
+You can now re-run your tests. This should resolve the JSX and syntax errors. If you encounter any further issues, let me know and I’ll help you troubleshoot!
+
+---
+
+_**User**_
+
+I got this error:    SyntaxError: C:\Users\gabym\Documents\LIDR\AI4Devs-TDD-RO-1\frontend\src\__test__\RecruiterDashboard.test.js: Support for the experimental syntax 'jsx' isn't currently enabled (12:7):
+
+      10 |   it('should render dashboard correctly', () => {
+      11 |     render(
+    > 12 |       <MemoryRouter>
+         |       ^
+      13 |         <RecruiterDashboard />
+      14 |       </MemoryRouter>
+      15 |     );
+
+---
+
+_**Assistant**_
+
+This error means Babel is still not transforming JSX in your test files. This usually happens if:
+
+- The Babel config is missing or not detected.
+- The required Babel packages are not installed.
+- The Jest config is not set up to use Babel for JS/JSX files.
+
+---
+
+## **Checklist to Fix**
+
+1. **Ensure you have a Babel config in your `` directory:**
+   - You already have `babel.config.js` with:
+     ```js
+     module.exports = {
+       presets: ['@babel/preset-env', '@babel/preset-react'],
+     };
+     ```
+
+2. **Install the required Babel packages:**
+   Run this in your `` directory:
+   ```powershell
+   npm install --save-dev @babel/preset-env @babel/preset-react babel-jest
+   ```
+
+3. **Ensure your Jest config is correct:**
+   - Your `jest.config.js` should include:
+     ```js
+     module.exports = {
+       transform: {
+         '^.+\\.[jt]sx?$': 'babel-jest',
+       },
+       testMatch: ['**/__test__/**/*.test.js'],
+       setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
+       testEnvironment: 'jsdom',
+     };
+     ```
+
+4. **Restart your test runner** after making these changes.
+
+---
+
+## **If you still get the error:**
+- Double-check that both `babel.config.js` and `jest.config.js` are in the root of your `` directory.
+- Make sure you are running the tests from the `` directory.
+
+---
+
+**Summary:**  
+- Install the Babel packages.
+- Ensure both config files are present and correct.
+- Restart your test runner.
+
+Let me know if you want me to check your `package.json` or help with the install command!
+
+---
+
+_**User**_
+
+I want to have an HTML report in the frontend
+
+---
+
+_**Assistant**_
+
+To generate an HTML report for your frontend Jest tests, follow these steps:
+
+---
+
+### 1. Install the HTML reporter
+
+In your `` directory, run:
+```powershell
+npm install --save-dev jest-html-reporter
+```
+
+---
+
+### 2. Update your Jest configuration
+
+Add the reporter to your `jest.config.js` in the `` directory:
+
+```js
+module.exports = {
+  transform: {
+    '^.+\\.[jt]sx?$': 'babel-jest',
+  },
+  testMatch: ['**/__test__/**/*.test.js'],
+  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
+  testEnvironment: 'jsdom',
+  reporters: [
+    'default',
+    ['jest-html-reporter', {
+      pageTitle: 'Frontend Test Report',
+      outputPath: './test-report.html'
+    }]
+  ]
+};
+```
+
+---
+
+### 3. Run your tests
+
+```powershell
+npx jest
+```
+
+---
+
+### 4. View the report
+
+Open the generated `test-report.html` file in your `` directory with your browser.
+
+---
+
+Let me know if you want me to update your `jest.config.js` automatically!
+
+---
+
+_**User**_
+
+update the jest file
+
+---
+
+_**Assistant**_
+
+
+````
+
+````
+Your `jest.config.js` in the frontend has been updated to include the HTML reporter configuration.
+
+Next steps:
+1. Install the reporter if you haven't already:
+   ```powershell
+   npm install --save-dev jest-html-reporter
+   ```
+2. Run your tests:
+   ```powershell
+   npx jest
+   ```
+3. Open the generated `test-report.html` file in your `` directory to view the HTML report.
+
+Let me know if you need further help!
+
+---
+
+_**User**_
+
+the html report should be located in the __test __ folder
+
+---
+
+_**Assistant**_
+
+
+````
+
+````
+The Jest configuration has been updated so that the HTML report will now be generated in `frontend/src/__test__/test-report.html`.
+
+After running your tests, you can open this file to view your test results in the browser. If you need further adjustments or help, let me know!
+
+---
+
+_**User**_
+
+in frontend acn you explain me the logic used for mock with axios
+
+---
+
+_**Assistant**_
+
+Certainly! Here’s how mocking with axios works in your frontend Jest tests:
+
+---
+
+### 1. **Mocking axios**
+
+At the top of your test file, you have:
+```javascript
+import axios from 'axios';
+jest.mock('axios');
+```
+- This tells Jest to replace all real `axios` calls with mock functions.
+- Now, `axios.post`, `axios.get`, etc., are Jest mock functions that you can control in your tests.
+
+---
+
+### 2. **Setting Mock Implementations**
+
+You can specify what the mock should return for each test:
+
+**For a successful call:**
+```javascript
+axios.post.mockResolvedValue({ data: { filePath: 'cv.pdf', fileType: 'pdf' } });
+```
+- This means when your code calls `axios.post`, it will return a resolved promise with the given data (as if the API call succeeded).
+
+**For an error:**
+```javascript
+axios.post.mockRejectedValue({ response: { data: 'error' } });
+```
+- This means when your code calls `axios.post`, it will return a rejected promise (as if the API call failed).
+
+---
+
+### 3. **Assertions**
+
+You can check:
+- That `axios.post` was called with the correct arguments.
+- That your code handles the returned data or error as expected.
+
+Example:
+```javascript
+expect(axios.post).toHaveBeenCalledWith('http://localhost:3010/upload', expect.any(FormData), expect.any(Object));
+```
+
+---
+
+### **Summary**
+
+- `jest.mock('axios')` replaces real network calls with controllable mock functions.
+- You set what the mock should return (success or error) for each test.
+- This allows you to test your logic without making real HTTP requests or needing a backend.
+
+Let me know if you want a deeper example or have a specific scenario in mind!
+
+---
+
+_**User**_
+
+can you explain the logic of the testing in recruiterdashoard test?
+
+---
+
+_**Assistant**_
+
+Certainly! Here’s the logic behind the tests in `RecruiterDashboard.test.js`:
+
+---
+
+### 1. **Test Setup**
+
+```javascript
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import RecruiterDashboard from '../components/RecruiterDashboard';
+```
+- **React Testing Library** is used to render the component and query the DOM.
+- **MemoryRouter** is used to provide routing context, since `RecruiterDashboard` uses `Link` from `react-router-dom`.
+
+---
+
+### 2. **Test: Render Dashboard Correctly**
+
+```javascript
+it('should render dashboard correctly', () => {
+  render(
+    <MemoryRouter>
+      <RecruiterDashboard />
+    </MemoryRouter>
+  );
+  expect(screen.getByText(/dashboard del reclutador/i)).toBeInTheDocument();
+  expect(screen.getByAltText(/lti logo/i)).toBeInTheDocument();
+});
+```
+- **Purpose:** Ensure the main dashboard elements are rendered.
+- **Checks:**
+  - The dashboard title ("Dashboard del Reclutador") is present.
+  - The LTI logo image is present (checked by its alt text).
+
+---
+
+### 3. **Test: Render Navigation Links**
+
+```javascript
+it('should render navigation links', () => {
+  render(
+    <MemoryRouter>
+      <RecruiterDashboard />
+    </MemoryRouter>
+  );
+  expect(screen.getByRole('link', { name: /añadir nuevo candidato/i })).toBeInTheDocument();
+});
+```
+- **Purpose:** Ensure navigation links are rendered.
+- **Checks:**
+  - The "Añadir Nuevo Candidato" link is present and accessible by its role and label.
+
+---
+
+### **Summary**
+
+- The tests check that the dashboard UI renders as expected and that navigation links are present.
+- They use React Testing Library’s queries to simulate what a user would see and interact with.
+- No business logic is tested here—just the presence of key UI elements and links.
+
+Let me know if you want to add more scenarios or need a deeper explanation!
+
+---
+
+_**User**_
+
+how to know this links in the UI or code?     <MemoryRouter>
+      <RecruiterDashboard />
+    </MemoryRouter> 
+
+---
+
+_**Assistant**_
+
+To know which links are present in the UI or code when you render:
+
+```jsx
+<MemoryRouter>
+  <RecruiterDashboard />
+</MemoryRouter>
+```
+
+you can check in two ways:
+
+---
+
+### 1. **Check the Component Code**
+
+Look at the `RecruiterDashboard.js` code. You’ll see:
+
+```jsx
+<Link to="/add-candidate">
+  <Button variant="primary" className="btn-block">Añadir Nuevo Candidato</Button>
+</Link>
+```
+
+- This means there is a link (`<a>`) that navigates to `/add-candidate`.
+- The link’s accessible name (what users and tests see) is “Añadir Nuevo Candidato”.
+
+---
+
+### 2. **Check in the Rendered UI**
+
+When rendered, the `Link` component from `react-router-dom` becomes an `<a>` tag in the DOM.  
+- The button text inside the link is what users see and what you can query in tests.
+
+---
+
+### **How to Query in Tests**
+
+You can use React Testing Library to find this link by its role and label:
+```js
+screen.getByRole('link', { name: /añadir nuevo candidato/i })
+```
+- This finds an `<a>` element with the visible text “Añadir Nuevo Candidato”.
+
+---
+
+**Summary:**  
+- Look for `<Link to="...">...</Link>` in your component code to see what links are present.
+- The text inside the link (or inside a button within the link) is what appears in the UI and what you can query in your tests.
+
+Let me know if you want to see all links or navigation options in your dashboard!
 
 ---
 

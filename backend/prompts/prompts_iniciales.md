@@ -5,7 +5,7 @@
 Act as an SDET expert in ATS Systems domain, and Jest and Typescript technology. You have a mission. 
 
 #GOAL
-Create Unit Tests for this system, to validate that the data as input and the records are saved in the database as expected.
+Create Unit Tests for this system (Backend and FrontEnd), to validate that the data as input and the records are saved in the database as expected.
 
 #STEPS
 
@@ -15,6 +15,7 @@ Create Unit Tests for this system, to validate that the data as input and the re
 4. Dont write code untill we have reviewd your thoughts.
 
 # PROMPT 2
+Answering the questions: 
 
 1.Include also service and busines logic, but as a low priority in the list
 2. Mock the DB layer for unit testing to avoid modifications in DB. Consider that we are using prisma and you can mock it using as reference https://www.prisma.io/blog/testing-series-1-8eRB5p0Y8o#mock-prisma-client. You will need to do the required configurations for that.
@@ -513,6 +514,12 @@ Would you like to add tests for related entities (Education, WorkExperience, Res
 _**User**_
 
 Keep focus onn the Candidate by now.
+
+#  PROMPT 8
+I would like to have an html report for jest. Oultline the steps to configure an html report in this project
+
+# PROMPT 9
+Analyze the code in the frontend/src path and tell me if the viability to create unit tests. If so, outline the list of units test that you condiser priority. In case there are scenarios that require modifications in the DB, you will need to mock it.
 
 
 
