@@ -1030,3 +1030,265 @@ If you see any errors or failures, please copy the output here and I’ll help y
 
 ---
 
+_**User**_
+
+I would like to have an html report for jest. Oultline the steps to configure an html report in this project
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+_**User**_
+
+@agent Try Again
+
+---
+
+_**Assistant**_
+
+To configure an HTML report for Jest in your project, follow these steps:
+
+1. **Install the HTML reporter package:**
+   ```powershell
+   npm install --save-dev jest-html-reporter
+   ```
+
+2. **Update your Jest configuration (`jest.config.js`):**
+   Add the following section:
+   ```js
+   module.exports = {
+     // ...existing config...
+     reporters: [
+       "default",
+       ["jest-html-reporter", {
+         "pageTitle": "Test Report",
+         "outputPath": "./test-report.html"
+       }]
+     ]
+   };
+   ```
+
+3. **Run your tests:**
+   ```powershell
+   npx jest
+   ```
+
+4. **View the report:**
+   - Open the generated `test-report.html` file in your project root with your browser.
+
+Let me know if you want me to update your `jest.config.js` automatically!
+
+---
+
+_**User**_
+
+proceed to update  the jest.config
+
+---
+
+_**Assistant**_
+
+
+````
+
+````
+Your `jest.config.js` has been updated to include the HTML reporter configuration. 
+
+**Next steps:**
+1. Install the reporter if you haven't already:
+   ```powershell
+   npm install --save-dev jest-html-reporter
+   ```
+2. Run your tests:
+   ```powershell
+   npx jest
+   ```
+3. Open the generated `test-report.html` file in your project root to view the HTML report.
+
+Let me know if you need help with any of these steps!
+
+---
+
+_**User**_
+
+Analyze the code in the frontend/src path and tell me if the viability to create unit tests. If so, outline the  list of units test that you condiser priority. In case there are scenarios that require modifications in the DB, you will need to mock it.
+
+---
+
+_**Assistant**_
+
+Here’s an analysis of the code in your `` path and the viability for unit testing:
+
+---
+
+## **Viability for Unit Testing**
+
+### **1. Components**
+- **FileUploader.js**:  
+  - Pure React component, handles file selection and upload via fetch.
+  - Can be unit tested for UI behavior, state changes, and function calls (mocking fetch).
+- **AddCandidateForm.js**:  
+  - Form logic for candidate data, state management, and submission.
+  - Can be unit tested for input handling, validation, and submission logic (mocking API calls).
+- **RecruiterDashboard.js**:  
+  - Purely presentational, renders UI and navigation.
+  - Can be tested for rendering and navigation, but low business logic.
+
+### **2. Services**
+- **candidateService.js**:  
+  - Contains functions for uploading CV and sending candidate data (uses axios).
+  - Can be unit tested by mocking axios and verifying correct API calls and error handling.
+
+---
+
+## **Database Modifications**
+- The frontend does not directly modify the database; it interacts with the backend via HTTP requests.
+- For unit tests, you should mock fetch/axios to avoid real network or DB calls.
+
+---
+
+## **Priority Unit Test List (by file)**
+
+### **FileUploader.js**
+1. **File Selection**
+   - Should update state and call `onChange` when a file is selected.
+2. **File Upload**
+   - Should call fetch with correct parameters when upload is triggered.
+   - Should show loading spinner during upload.
+   - Should call `onUpload` with response data on success.
+   - Should handle and display upload errors.
+
+### **AddCandidateForm.js**
+1. **Input Handling**
+   - Should update candidate state on input change.
+   - Should add/remove education and work experience sections.
+2. **CV Upload**
+   - Should update state when a CV is uploaded (mock `handleCVUpload`).
+3. **Form Submission**
+   - Should call API with correct data on submit (mock API).
+   - Should handle and display errors on failed submission.
+   - Should show success message on successful submission.
+
+### **candidateService.js**
+1. **uploadCV**
+   - Should call axios.post with correct URL and form data.
+   - Should handle and propagate errors.
+2. **sendCandidateData**
+   - Should call axios.post with correct URL and payload.
+   - Should handle and propagate errors.
+
+### **RecruiterDashboard.js**
+- (Low priority) Should render dashboard and navigation links correctly.
+
+---
+
+**Summary:**  
+- All main files are viable for unit testing.
+- No direct DB modifications in frontend; mock fetch/axios for all network interactions.
+- Focus on testing user interactions, state changes, and API integration logic.
+
+Let me know if you want to proceed with scaffolding any of these tests or need help setting up the test environment!
+
+---
+
+_**User**_
+
+Propose an structure for these testing.
+
+---
+
+_**Assistant**_
+
+Here’s a proposed structure for unit testing your frontend code, following best practices for React and service testing:
+
+---
+
+## **1. Directory & File Structure**
+
+```
+frontend/
+  src/
+    components/
+      __tests__/
+        FileUploader.test.js
+        AddCandidateForm.test.js
+        RecruiterDashboard.test.js
+    services/
+      __tests__/
+        candidateService.test.js
+```
+
+---
+
+## **2. Testing Tools**
+
+- **Testing Library (React Testing Library):** For component testing (user interaction, rendering, state).
+- **Jest:** For running tests, mocking modules (fetch, axios), and assertions.
+- **Jest Mocks:** For mocking network requests (fetch/axios).
+
+---
+
+## **3. Test File Content Outline**
+
+### **components/__tests__/FileUploader.test.js**
+- Test file selection updates state and calls `onChange`.
+- Test upload button triggers fetch with correct data.
+- Test loading spinner appears during upload.
+- Test `onUpload` is called with response data.
+- Test error handling on failed upload.
+
+### **components/__tests__/AddCandidateForm.test.js**
+- Test input changes update candidate state.
+- Test adding/removing education/work experience.
+- Test CV upload updates state.
+- Test form submission calls API with correct data.
+- Test error and success message display.
+
+### **components/__tests__/RecruiterDashboard.test.js**
+- Test dashboard renders correctly.
+- Test navigation links are present and correct.
+
+### **services/__tests__/candidateService.test.js**
+- Test `uploadCV` calls axios with correct params and handles errors.
+- Test `sendCandidateData` calls axios with correct params and handles errors.
+
+---
+
+## **4. Mocking Strategy**
+
+- **Mock fetch** in `FileUploader.test.js` using `jest.fn()` or `jest.spyOn(global, 'fetch')`.
+- **Mock axios** in `candidateService.test.js` using `jest.mock('axios')`.
+
+---
+
+## **5. Example Test Skeleton**
+
+```js
+// FileUploader.test.js
+import { render, fireEvent, screen } from '@testing-library/react';
+import FileUploader from '../FileUploader';
+
+test('calls onChange when file is selected', () => {
+  // Arrange
+  // Act
+  // Assert
+});
+
+// ...other tests
+```
+
+---
+
+**Summary:**  
+- Place tests in `__tests__` folders next to the code they test.
+- Use React Testing Library for components, Jest for services.
+- Mock network requests to avoid real backend/DB calls.
+
+Let me know if you want to scaffold any specific 
+
+---
+
