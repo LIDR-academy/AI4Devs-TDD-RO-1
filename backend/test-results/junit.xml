@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="10" failures="0" errors="0" time="9.582">
+  <testsuite name="CandidateService" errors="0" failures="0" skipped="0" timestamp="2025-06-24T01:58:40" time="7.49" tests="5">
+    <testcase classname="CandidateService › addCandidate" name="should create a candidate successfully" time="0.02">
+    </testcase>
+    <testcase classname="CandidateService › addCandidate" name="should create candidate with education and work experience" time="0.004">
+    </testcase>
+    <testcase classname="CandidateService › addCandidate" name="should create candidate with CV" time="0.003">
+    </testcase>
+    <testcase classname="CandidateService › addCandidate" name="should throw error when candidate creation fails" time="0.044">
+    </testcase>
+    <testcase classname="CandidateService › addCandidate" name="should throw specific error for duplicate email" time="0.01">
+    </testcase>
+  </testsuite>
+  <testsuite name="Candidate Routes Integration Tests" errors="0" failures="0" skipped="0" timestamp="2025-06-24T01:58:40" time="8.031" tests="5">
+    <testcase classname="Candidate Routes Integration Tests › POST /candidates" name="should create a candidate successfully" time="0.14">
+    </testcase>
+    <testcase classname="Candidate Routes Integration Tests › POST /candidates" name="should return 400 for invalid data" time="0.015">
+    </testcase>
+    <testcase classname="Candidate Routes Integration Tests › GET /candidates" name="should return all candidates" time="0.012">
+    </testcase>
+    <testcase classname="Candidate Routes Integration Tests › GET /candidates/:id" name="should return candidate by id" time="0.009">
+    </testcase>
+    <testcase classname="Candidate Routes Integration Tests › GET /candidates/:id" name="should return 404 for non-existent candidate" time="0.009">
+    </testcase>
+  </testsuite>
+</testsuites>

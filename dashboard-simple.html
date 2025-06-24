@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LTI - Dashboard de Pruebas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .stat {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin: 10px;
+            min-width: 200px;
+        }
+        .stat h3 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .stat .number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .reports {
+            margin-top: 30px;
+        }
+        .report {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        .report h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .report p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .coverage {
+            background: #e9ecef;
+            height: 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .coverage-fill {
+            height: 100%;
+            background: #28a745;
+        }
+        .timestamp {
+            text-align: center;
+            color: #666;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Dashboard de Pruebas - LTI</h1>
+        
+        <div class="stats">
+            <div class="stat">
+                <h3>🔧 Backend</h3>
+                <div class="number">10</div>
+                <div>Pruebas Exitosas</div>
+                <div class="coverage">
+                    <div class="coverage-fill" style="width: 28.03%"></div>
+                </div>
+                <div>28.03% Cobertura</div>
+            </div>
+            
+            <div class="stat">
+                <h3>🎨 Frontend</h3>
+                <div class="number">7</div>
+                <div>Pruebas Exitosas</div>
+                <div class="coverage">
+                    <div class="coverage-fill" style="width: 33.98%"></div>
+                </div>
+                <div>33.98% Cobertura</div>
+            </div>
+            
+            <div class="stat">
+                <h3>📊 Total</h3>
+                <div class="number">17</div>
+                <div>Pruebas Totales</div>
+                <div class="coverage">
+                    <div class="coverage-fill" style="width: 100%"></div>
+                </div>
+                <div>100% Éxito</div>
+            </div>
+        </div>
+        
+        <div class="reports">
+            <h2>📊 Reportes Detallados</h2>
+            
+            <div class="report">
+                <h3>🔧 Backend - Reporte de Cobertura</h3>
+                <p>Reporte detallado de cobertura de código para el backend, incluyendo servicios, controladores y rutas.</p>
+                <a href="./backend/coverage/index.html" class="btn" target="_blank">Ver Reporte HTML</a>
+                <a href="./backend/coverage/lcov-report/index.html" class="btn" target="_blank">Ver LCOV</a>
+            </div>
+            
+            <div class="report">
+                <h3>🎨 Frontend - Reporte de Cobertura</h3>
+                <p>Reporte detallado de cobertura de código para el frontend, incluyendo componentes React y servicios.</p>
+                <a href="./frontend/coverage/index.html" class="btn" target="_blank">Ver Reporte HTML</a>
+                <a href="./frontend/coverage/lcov-report/index.html" class="btn" target="_blank">Ver LCOV</a>
+            </div>
+        </div>
+        
+        <div class="timestamp">
+            Última actualización: <span id="timestamp"></span>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('timestamp').textContent = new Date().toLocaleString('es-ES');
+    </script>
+</body>
+</html> 
