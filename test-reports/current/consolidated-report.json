@@ -1,0 +1,99 @@
+{
+  "timestamp": "2025-06-24T01:59:03.629Z",
+  "summary": {
+    "backend": {
+      "coverage": {
+        "lines": {
+          "total": 218,
+          "covered": 26,
+          "skipped": 0,
+          "pct": 11.92
+        },
+        "statements": {
+          "total": 230,
+          "covered": 27,
+          "skipped": 0,
+          "pct": 11.73
+        },
+        "functions": {
+          "total": 33,
+          "covered": 3,
+          "skipped": 0,
+          "pct": 9.09
+        },
+        "branches": {
+          "total": 105,
+          "covered": 8,
+          "skipped": 0,
+          "pct": 7.61
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      },
+      "timestamp": "2025-06-24T01:59:03.630Z"
+    },
+    "frontend": {
+      "coverage": {
+        "lines": {
+          "total": 124,
+          "covered": 43,
+          "skipped": 0,
+          "pct": 34.67
+        },
+        "statements": {
+          "total": 153,
+          "covered": 52,
+          "skipped": 0,
+          "pct": 33.98
+        },
+        "functions": {
+          "total": 39,
+          "covered": 12,
+          "skipped": 0,
+          "pct": 30.76
+        },
+        "branches": {
+          "total": 34,
+          "covered": 8,
+          "skipped": 0,
+          "pct": 23.52
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      },
+      "timestamp": "2025-06-24T01:59:03.630Z"
+    },
+    "total": {
+      "tests": {
+        "backend": 10,
+        "frontend": 7,
+        "total": 17
+      },
+      "coverage": {
+        "lines": 6,
+        "statements": 6,
+        "functions": 5,
+        "branches": 4
+      },
+      "timestamp": "2025-06-24T01:59:03.631Z"
+    }
+  },
+  "details": {
+    "backend": {
+      "testResults": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<testsuites name=\"jest tests\" tests=\"10\" failures=\"0\" errors=\"0\" time=\"9.582\">\n  <testsuite name=\"CandidateService\" errors=\"0\" failures=\"0\" skipped=\"0\" timestamp=\"2025-06-24T01:58:40\" time=\"7.49\" tests=\"5\">\n    <testcase classname=\"CandidateService › addCandidate\" name=\"should create a candidate successfully\" time=\"0.02\">\n    </testcase>\n    <testcase classname=\"CandidateService › addCandidate\" name=\"should create candidate with education and work experience\" time=\"0.004\">\n    </testcase>\n    <testcase classname=\"CandidateService › addCandidate\" name=\"should create candidate with CV\" time=\"0.003\">\n    </testcase>\n    <testcase classname=\"CandidateService › addCandidate\" name=\"should throw error when candidate creation fails\" time=\"0.044\">\n    </testcase>\n    <testcase classname=\"CandidateService › addCandidate\" name=\"should throw specific error for duplicate email\" time=\"0.01\">\n    </testcase>\n  </testsuite>\n  <testsuite name=\"Candidate Routes Integration Tests\" errors=\"0\" failures=\"0\" skipped=\"0\" timestamp=\"2025-06-24T01:58:40\" time=\"8.031\" tests=\"5\">\n    <testcase classname=\"Candidate Routes Integration Tests › POST /candidates\" name=\"should create a candidate successfully\" time=\"0.14\">\n    </testcase>\n    <testcase classname=\"Candidate Routes Integration Tests › POST /candidates\" name=\"should return 400 for invalid data\" time=\"0.015\">\n    </testcase>\n    <testcase classname=\"Candidate Routes Integration Tests › GET /candidates\" name=\"should return all candidates\" time=\"0.012\">\n    </testcase>\n    <testcase classname=\"Candidate Routes Integration Tests › GET /candidates/:id\" name=\"should return candidate by id\" time=\"0.009\">\n    </testcase>\n    <testcase classname=\"Candidate Routes Integration Tests › GET /candidates/:id\" name=\"should return 404 for non-existent candidate\" time=\"0.009\">\n    </testcase>\n  </testsuite>\n</testsuites>",
+      "timestamp": "2025-06-24T01:59:03.630Z"
+    },
+    "frontend": {
+      "testResults": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<testsuites name=\"jest tests\" tests=\"7\" failures=\"0\" errors=\"0\" time=\"4.058\">\n  <testsuite name=\"AddCandidateForm\" errors=\"0\" failures=\"0\" skipped=\"0\" timestamp=\"2025-06-24T01:58:58\" time=\"2.565\" tests=\"7\">\n    <testcase classname=\"AddCandidateForm\" name=\"should render form fields\" time=\"0.312\">\n    </testcase>\n    <testcase classname=\"AddCandidateForm\" name=\"should handle form input changes\" time=\"0.113\">\n    </testcase>\n    <testcase classname=\"AddCandidateForm\" name=\"should add education section when button is clicked\" time=\"0.075\">\n    </testcase>\n    <testcase classname=\"AddCandidateForm\" name=\"should handle form submission successfully\" time=\"0.199\">\n    </testcase>\n    <testcase classname=\"AddCandidateForm\" name=\"should show error message on submission failure\" time=\"0.101\">\n    </testcase>\n    <testcase classname=\"AddCandidateForm\" name=\"should handle file upload\" time=\"0.018\">\n    </testcase>\n    <testcase classname=\"AddCandidateForm\" name=\"should remove education section when remove button is clicked\" time=\"0.073\">\n    </testcase>\n  </testsuite>\n</testsuites>",
+      "timestamp": "2025-06-24T01:59:03.631Z"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="7" failures="0" errors="0" time="4.412">
+  <testsuite name="AddCandidateForm" errors="0" failures="0" skipped="0" timestamp="2025-06-24T01:52:39" time="2.669" tests="7">
+    <testcase classname="AddCandidateForm" name="should render form fields" time="0.155">
+    </testcase>
+    <testcase classname="AddCandidateForm" name="should handle form input changes" time="0.062">
+    </testcase>
+    <testcase classname="AddCandidateForm" name="should add education section when button is clicked" time="0.038">
+    </testcase>
+    <testcase classname="AddCandidateForm" name="should handle form submission successfully" time="0.263">
+    </testcase>
+    <testcase classname="AddCandidateForm" name="should show error message on submission failure" time="0.192">
+    </testcase>
+    <testcase classname="AddCandidateForm" name="should handle file upload" time="0.033">
+    </testcase>
+    <testcase classname="AddCandidateForm" name="should remove education section when remove button is clicked" time="0.134">
+    </testcase>
+  </testsuite>
+</testsuites>

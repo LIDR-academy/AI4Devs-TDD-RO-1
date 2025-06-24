@@ -25,7 +25,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --config jest.config.js",
+    "test": "react-scripts test",
+    "test:coverage": "jest --config jest.config.js --coverage",
+    "test:coverage:open": "jest --config jest.config.js --coverage && open coverage/index.html",
+    "test:coverage:report": "jest --config jest.config.js --coverage --coverageReporters=html --coverageReporters=text-summary",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -45,5 +48,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "identity-obj-proxy": "^3.0.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-junit": "^16.0.0",
+    "jsdom": "^21.1.1",
+    "ts-jest": "^29.4.0"
   }
 }
