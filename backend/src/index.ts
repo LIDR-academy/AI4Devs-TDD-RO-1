@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import express from 'express';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from './infrastructure/db/prisma';
 import dotenv from 'dotenv';
 import candidateRoutes from './routes/candidateRoutes';
 import { uploadFile } from './application/services/fileUploadService';
 import cors from 'cors';
+import type { PrismaClient } from '@prisma/client';
 
 // Extender la interfaz Request para incluir prisma
 declare global {
@@ -16,7 +17,6 @@ declare global {
 }
 
 dotenv.config();
-const prisma = new PrismaClient();
 
 export const app = express();
 export default app;
