@@ -27,6 +27,21 @@ const validateDate = (date: string) => {
     if (!date || !DATE_REGEX.test(date)) {
         throw new Error('Invalid date');
     }
+    // Validar que la fecha sea real
+    const parsed = Date.parse(date);
+    if (isNaN(parsed)) {
+        throw new Error('Invalid date');
+    }
+    // Comprobar que la fecha reconstruida coincide con el input
+    const [year, month, day] = date.split('-').map(Number);
+    const dateObj = new Date(parsed);
+    if (
+        dateObj.getUTCFullYear() !== year ||
+        dateObj.getUTCMonth() + 1 !== month ||
+        dateObj.getUTCDate() !== day
+    ) {
+        throw new Error('Invalid date');
+    }
 };
 
 const validateAddress = (address: string) => {
