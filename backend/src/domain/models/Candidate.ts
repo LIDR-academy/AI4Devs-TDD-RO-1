@@ -3,7 +3,7 @@ import { Education } from './Education';
 import { WorkExperience } from './WorkExperience';
 import { Resume } from './Resume';
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient(); // Esta línea se eliminará
 
 export class Candidate {
     id?: number;
@@ -15,17 +15,23 @@ export class Candidate {
     education: Education[];
     workExperience: WorkExperience[];
     resumes: Resume[];
+    private prisma: PrismaClient; // Añadir la propiedad para la inyección de dependencias
 
-    constructor(data: any) {
+    constructor(data: any, prismaClient: PrismaClient = new PrismaClient()) {
         this.id = data.id;
         this.firstName = data.firstName;
         this.lastName = data.lastName;
         this.email = data.email;
         this.phone = data.phone;
         this.address = data.address;
-        this.education = data.education || [];
-        this.workExperience = data.workExperience || [];
+        this.education = data.educations || [];
+        this.workExperience = data.workExperiences || [];
         this.resumes = data.resumes || [];
+        this.prisma = prismaClient; // Asignar la instancia de PrismaClient inyectada
+
+        // console.log('Constructor - this.education:', this.education);
+        // console.log('Constructor - this.workExperience:', this.workExperience);
+        // console.log('Constructor - this.resumes:', this.resumes);
     }
 
     async save() {
@@ -73,15 +79,17 @@ export class Candidate {
             };
         }
 
+        // console.log('CandidateData before Prisma create/update:', candidateData);
+
         if (this.id) {
             // Actualizar un candidato existente
             try {
-                return await prisma.candidate.update({
+                return await this.prisma.candidate.update({
                     where: { id: this.id },
                     data: candidateData
                 });
             } catch (error: any) {
-                console.log(error);
+                // @ts-ignore
                 if (error instanceof Prisma.PrismaClientInitializationError) {
                     // Database connection error
                     throw new Error('No se pudo conectar con la base de datos. Por favor, asegúrese de que el servidor de base de datos esté en ejecución.');
@@ -95,11 +103,12 @@ export class Candidate {
         } else {
             // Crear un nuevo candidato
             try {
-                const result = await prisma.candidate.create({
+                const result = await this.prisma.candidate.create({
                     data: candidateData
                 });
                 return result;
             } catch (error: any) {
+                // @ts-ignore
                 if (error instanceof Prisma.PrismaClientInitializationError) {
                     // Database connection error
                     throw new Error('No se pudo conectar con la base de datos. Por favor, asegúrese de que el servidor de base de datos esté en ejecución.');
@@ -110,8 +119,8 @@ export class Candidate {
         }
     }
 
-    static async findOne(id: number): Promise<Candidate | null> {
-        const data = await prisma.candidate.findUnique({
+    static async findOne(id: number, prismaClient: PrismaClient = new PrismaClient()): Promise<Candidate | null> {
+        const data = await prismaClient.candidate.findUnique({
             where: { id: id }
         });
         if (!data) return null;

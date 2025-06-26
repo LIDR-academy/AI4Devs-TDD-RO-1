@@ -2,12 +2,20 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
+    "moduleResolution": "node",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./src",
+    "paths": {
+      "domain/models/Candidate": ["domain/models/Candidate.ts"],
+      "domain/models/*": ["domain/models/*"],
+      "application/services/*": ["application/services/*"],
+      "application/validator": ["application/validator.ts"]
+    }
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/tests/**/*.ts"],
   "exclude": ["node_modules"]
 }
