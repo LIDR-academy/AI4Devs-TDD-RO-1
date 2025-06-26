@@ -45,5 +45,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
+    "babel-jest": "^30.0.2",
+    "identity-obj-proxy": "^3.0.0",
+    "jest-environment-jsdom": "^30.0.2",
+    "ts-jest": "^29.4.0"
   }
 }
