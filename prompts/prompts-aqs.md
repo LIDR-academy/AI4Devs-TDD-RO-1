@@ -47,3 +47,6 @@ Si, procede con el plan, me parece excelente
 
 # Respuesta 2
 Archivo de pruebas creado
+
+# Proximos prompts
+Los siguientes prompts fueron aceptar el plan, corregir algunos errores de referencias, preguntar del porqué mockeo objetos que no tienen conexiones a la base de datos, mover el archivo a la ruta de directorio requerido por el ejercicio y colocar el comando npm test en modo verboso

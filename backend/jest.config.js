@@ -5,4 +5,5 @@ module.exports = {
   roots: ['<rootDir>/src'],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
   collectCoverageFrom: ['src/**/*.{js,ts}', '!src/**/*.d.ts'],
+  verbose: true,
 };
