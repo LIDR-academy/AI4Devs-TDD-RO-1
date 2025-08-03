@@ -41,3 +41,9 @@ Verificar si existen dependencias o utilidades adicionales que deban ser mockead
 Confirmar la estructura de los modelos y servicios para asegurar que los tests cubren los casos relevantes.
 Crear los archivos de prueba en la ubicación adecuada (src/application/services/__tests__/candidateService.test.ts).
 ¿Aceptas este plan de acción o deseas agregar/modificar algún punto antes de continuar con la ejecución paso a paso?
+
+# Prompt 2
+Si, procede con el plan, me parece excelente
+
+# Respuesta 2
+Archivo de pruebas creado
